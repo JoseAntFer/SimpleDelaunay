@@ -27,5 +27,11 @@ int main()
 ```
 `SimpleDelaunay::compute<N>` can also be called with custom indices for the points and for arbitrary (non `std::vector`) containers as long as the input data is contiguous in memory (see examples).
 
+## About Performance
+**SimpleDelaunay** has been conceived to generate a high number of very small triangulations (<100 points each) instead of a single very large one. Therefore, it lacks of the characteristic accelerators that quickhull implementations typically have, such as face neighboring tracking. Consider this if your use case involves large point clouds and performance is a priority.
+
+## Commpilation
+**SimpleDelaunay** only depends on the STL library. C++14 compilation required.
+
 ## License
 **SimpleDelaunay** is an open source project under the MIT license.
