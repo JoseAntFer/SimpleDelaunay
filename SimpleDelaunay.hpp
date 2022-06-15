@@ -28,11 +28,12 @@ SOFTWARE.
 #include <iostream>
 #include <cassert>
 #include <cmath>
+#include <random>
 
 namespace SimpleDelaunay
 {
 // Global parameters
-static double TOL = 1e-15;
+static double TOL = 1e-10;
 
 /* =========== Auxiliar vector utilities =========== */
 // Tiny templated vector class
@@ -555,6 +556,10 @@ inline std::vector<int> compute(
 
     // Delaunay Nodes creation
     {
+        std::random_device rd;
+        std::mt19937 mt(rd());
+        std::uniform_real_distribution<double> dist(-TOL, TOL);
+
         // Node creation
         for (int node_i = 0; node_i < n_nodes; node_i++) {
 
@@ -562,7 +567,7 @@ inline std::vector<int> compute(
             double height = 0.0;
             std::array<double, N> coords;
             for (int coord_i = 0; coord_i < n; coord_i++) {
-                coords[coord_i] = points[n*node_i + coord_i];
+                coords[coord_i] = points[n*node_i + coord_i] + dist(mt); // Perturbation to remove alignments
                 height += coords[coord_i] * coords[coord_i];
             }
             coords[n] = height;
