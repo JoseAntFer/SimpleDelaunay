@@ -567,7 +567,7 @@ inline std::vector<int> compute(
             double height = 0.0;
             std::array<double, N> coords;
             for (int coord_i = 0; coord_i < n; coord_i++) {
-                coords[coord_i] = points[n*node_i + coord_i] + dist(mt); // Perturbation to remove alignments
+                coords[coord_i] = points[n*node_i + coord_i] + 1000.0*dist(mt); // Perturbation to remove alignments
                 height += coords[coord_i] * coords[coord_i];
             }
             coords[n] = height;
